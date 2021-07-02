@@ -33,8 +33,23 @@ client.on("message", message => {
     if (command === "msg") {
         client.commands.get("msg").execute(message, args, client);
     } else
+    if (command === "ping") {
+        client.commands.get("ping").execute(message, args);
+    } else
+    if (command === "yeet") {
+        client.commands.get("yeet").execute(message, args);
+    } else
     if (command === "reactrole") {
         client.commands.get("reactrole").execute(message, args, Discord, client);
+    } else
+    if (command === "reactrole1") {
+        client.commands.get("reactrole1").execute(message, args, Discord, client);
+    } else
+    if (command === "reactrole2") {
+        client.commands.get("reactrole2").execute(message, args, Discord, client);
+    } else
+    if (command === "reactrole3") {
+        client.commands.get("reactrole3").execute(message, args, Discord, client);
     }
 });
 
