@@ -2,6 +2,8 @@ module.exports = {
     name: "reactrole3",
     description: " Sets up a react 4 role message",
     async execute(message, args, Discord, client) {
+        message.delete();
+        
         const channel = "859165049700352060";
         const role1 = message.guild.roles.cache.find(role => role.name === "Football");
         const role2 = message.guild.roles.cache.find(role => role.name === "Basketball");

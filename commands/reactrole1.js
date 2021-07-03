@@ -2,6 +2,8 @@ module.exports = {
     name: "reactrole1",
     description: " Sets up a react 4 role message",
     async execute(message, args, Discord, client) {
+        message.delete();
+        
         const channel = "859165049700352060";
         const role1 = message.guild.roles.cache.find(role => role.name === "straight");
         const role2 = message.guild.roles.cache.find(role => role.name === "Gay");
@@ -11,11 +13,11 @@ module.exports = {
         const role6 = message.guild.roles.cache.find(role => role.name === "Non Binary");
 
         const roleEmoji1 = `⚪`;
-        const roleEmoji2 = `🔴`;
+        const roleEmoji2 = `🟥`;
         const roleEmoji3 = `🟤`;
         const roleEmoji4 = `🟠`;
         const roleEmoji5 = `🟢`;
-        const roleEmoji6 = `🔵`;
+        const roleEmoji6 = `🔹`;
 
         let embed = new Discord.MessageEmbed()
             .setColor(`#e42643`)
