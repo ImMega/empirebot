@@ -50,6 +50,21 @@ client.on("message", message => {
     } else
     if (command === "reactrole3") {
         client.commands.get("reactrole3").execute(message, args, Discord, client);
+    } else
+    if (command === "ppsize") {
+        client.commands.get("ppsize").execute(message, args);
+    } else
+    if (command === "simp") {
+        client.commands.get("simp").execute(message, args);
+    } else
+    if (command === "gay") {
+        client.commands.get("gay").execute(message, args);
+    } else
+    if (command === "kill") {
+        client.commands.get("kill").execute(message, args);
+    } else
+    if (command === "help"){
+        client.commands.get("help").execute(message, args, Discord, client);
     }
 });
 
