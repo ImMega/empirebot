@@ -8,6 +8,8 @@ const fs = require("fs");
 
 client.commands = new Discord.Collection();
 
+client.utils = new Discord.Collection();
+
 const commandFiles = fs.readdirSync ("./commands/").filter(file => file.endsWith(".js"));
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
@@ -15,10 +17,19 @@ for (const file of commandFiles){
     client.commands.set(command.name, command);
 }
 
+const utilFiles = fs.readdirSync ("./client/").filter(file => file.endsWith(".js"));
+for (const file of utilFiles){
+    const util = require(`./client/${file}`);
+
+    client.utils.set(util.name, util);
+}
 
 client.once("ready", () => {
     console.log(`${client.user.username}` + " is online");
+
+    client.utils.get("richPresence").execute(client);
 });
+
 
 client.on("message", message => {
     const jebanje = message.content === "Jebem ti mater" || message.content === "jebem ti mater" || message.content === "JEBEM TI MATER"
@@ -65,6 +76,21 @@ client.on("message", message => {
     } else
     if (command === "help"){
         client.commands.get("help").execute(message, args, Discord, client);
+    } else
+    if (command === "grill"){
+        client.commands.get("grill").execute(message, args);
+    } else
+    if (command === "bakar"){
+        client.commands.get("bakar").execute(message, args);
+    } else
+    if (command === "reactroleon"){
+        if (message.author.id === "470277450551656459"){
+            client.utils.get("reactroleon").execute(message, args, Discord, client);
+            message.channel.send("React roles su ponovno ukljuceni!")
+        } else
+        if (!message.author.id === "470277450551656459"){
+            message.channel.send("Ovu komandu moze koristit samo bot dev <@470277450551656459>")
+        }
     }
 });
 

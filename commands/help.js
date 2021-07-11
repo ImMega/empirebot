@@ -19,7 +19,9 @@ module.exports = {
                                     + `kill\n`
                                     + `gay\n`
                                     + `ppsize\n`
-                                    + `simp`)
+                                    + `simp\n`
+                                    + `grill\n`
+                                    + `bakar`)
                     .setThumbnail(message.author.displayAvatarURL)
                     .setFooter(`${client.user.username}` + " Commands")
                     .setTimestamp()
