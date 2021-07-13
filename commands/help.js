@@ -21,7 +21,9 @@ module.exports = {
                                     + `ppsize\n`
                                     + `simp\n`
                                     + `grill\n`
-                                    + `bakar`)
+                                    + `bakar\n`
+                                    + `cajna\n`
+                                    + `klaric`)
                     .setThumbnail(message.author.displayAvatarURL)
                     .setFooter(`${client.user.username}` + " Commands")
                     .setTimestamp()
@@ -34,7 +36,7 @@ module.exports = {
                 .setTitle(`${client.user.username}` + " Admin Commands List")
                 .setDescription(`Prefix: **e!**\n`
                                 + ` \n`
-                                + `msg (e!msg <channel ID u koji zelis poslat> (sto god zelis da bot posalje))`)
+                                + `msg ( e!msg <channel ID> <message> )`)
                 .setThumbnail(message.author.displayAvatarURL)
                 .setFooter(`${client.user.username}` + " Admin Commands")
                 .setTimestamp()

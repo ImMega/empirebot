@@ -74,16 +74,16 @@ client.on("message", message => {
     if (command === "kill") {
         client.commands.get("kill").execute(message, args);
     } else
-    if (command === "help"){
+    if (command === "help") {
         client.commands.get("help").execute(message, args, Discord, client);
     } else
-    if (command === "grill"){
+    if (command === "grill") {
         client.commands.get("grill").execute(message, args);
     } else
     if (command === "bakar"){
         client.commands.get("bakar").execute(message, args);
     } else
-    if (command === "reactroleon"){
+    if (command === "reactroleon") {
         if (message.author.id === "470277450551656459"){
             client.utils.get("reactroleon").execute(message, args, Discord, client);
             message.channel.send("React roles su ponovno ukljuceni!")
@@ -91,6 +91,12 @@ client.on("message", message => {
         if (!message.author.id === "470277450551656459"){
             message.channel.send("Ovu komandu moze koristit samo bot dev <@470277450551656459>")
         }
+    } else 
+    if (command === "cajna") {
+        client.commands.get("cajna").execute(message, args);
+    } else
+    if (command === "klaric") {
+        client.commands.get("klaric").execute(message, args);
     }
 });
 

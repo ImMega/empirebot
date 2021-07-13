@@ -1,6 +1,12 @@
 module.exports = {
     name: "richPresence",
     execute(client){
+        function startRPC() {
+            client.user.setActivity(`e!help`, {type: `LISTENING`});
+
+            setTimeout(randomRPC, 15000);
+        }
+
         function randomRPC() {
             getTime = Math.floor (Math.random() * 3) + 1;
             otherRPC = 3;
@@ -30,13 +36,31 @@ module.exports = {
         }
 
         function watchingRPC() {
-            client.user.setActivity(`Roman Empire`, {type: `WATCHING`});
+            watchActivityGet = Math.floor (Math.random() * 2) + 1;
+
+            if (watchActivityGet === 1){
+                watchActivity = `Roman Empire`;
+            } else
+            if (watchActivityGet === 2){
+                watchActivity = `PornHub`;
+            }
+
+            client.user.setActivity(watchActivity, {type: `WATCHING`});
             
             randomRPC();
         }
 
         function playingRPC() {
-            client.user.setActivity(`with gas`, {type: `PLAYING`});
+            playActivityGet = Math.floor (Math.random() * 2) + 1;
+
+            if (playActivityGet === 1){
+                playActivity = `with gas`;
+            } else
+            if (playActivityGet === 2){
+                playActivity = `with your mom`;
+            }
+
+            client.user.setActivity(playActivity, {type: `PLAYING`});
 
             randomRPC();
         }
@@ -47,6 +71,6 @@ module.exports = {
             randomRPC();
         }
         
-        watchingRPC();
+        startRPC();
     }
 }
