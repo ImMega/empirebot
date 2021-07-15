@@ -97,6 +97,12 @@ client.on("message", message => {
     } else
     if (command === "klaric") {
         client.commands.get("klaric").execute(message, args);
+    } else
+    if (command === "klaric2") {
+        client.commands.get("klaric2").execute(message, args);
+    } else
+    if (command === "teletabis") {
+        client.commands.get("teletabis").execute(message, args);
     }
 });
 
