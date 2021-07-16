@@ -103,6 +103,12 @@ client.on("message", message => {
     } else
     if (command === "teletabis") {
         client.commands.get("teletabis").execute(message, args);
+    } else 
+    if (command === "jebanje") {
+        client.commands.get("jebanje").execute(message, args);
+    } else 
+    if (command === "jebanje2") {
+        client.commands.get("jebanje2").execute(message, args);
     }
 });
 
