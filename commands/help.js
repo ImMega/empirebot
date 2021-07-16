@@ -24,7 +24,7 @@ module.exports = {
                                     + `bakar\n`
                                     + `cajna\n`
                                     + `klaric`)
-                    .setThumbnail(message.author.displayAvatarURL)
+                    .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
                     .setFooter(`${client.user.username}` + " Commands")
                     .setTimestamp()
                 message.channel.send(helpEmbed);
@@ -37,7 +37,7 @@ module.exports = {
                 .setDescription(`Prefix: **e!**\n`
                                 + ` \n`
                                 + `msg ( e!msg <channel ID> <message> )`)
-                .setThumbnail(message.author.displayAvatarURL)
+                .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
                 .setFooter(`${client.user.username}` + " Admin Commands")
                 .setTimestamp()
             message.channel.send(adminHelp);
