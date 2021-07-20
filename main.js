@@ -109,6 +109,9 @@ client.on("message", message => {
     } else 
     if (command === "jebanje2") {
         client.commands.get("jebanje2").execute(message, args);
+    } else 
+    if (command === "jebanje3") {
+        client.commands.get("jebanje3").execute(message, args);
     }
 });
 
