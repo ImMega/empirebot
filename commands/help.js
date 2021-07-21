@@ -27,7 +27,8 @@ module.exports = {
                                     + `klaric2\n`
                                     + `jebanje\n`
                                     + `jebanje2\n`
-                                    + `jebanje3`)
+                                    + `jebanje3\n`
+                                    + `amigo`)
                     .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
                     .setFooter(`${client.user.username}` + " Commands")
                     .setTimestamp()
