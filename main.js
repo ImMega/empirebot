@@ -30,6 +30,13 @@ client.once("ready", () => {
     client.utils.get("richPresence").execute(client);
 });
 
+client.on('messageReactionAdd', function(reaction, user) {
+    if (!user.bot) {
+        //The following code will only run if the user is not a bot, therefore filering out the initial bot reactions.
+        console.log(reaction);
+    }
+});
+
 
 client.on("message", message => {
     const jebanje = message.content === "Jebem ti mater" || message.content === "jebem ti mater" || message.content === "JEBEM TI MATER"
