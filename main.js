@@ -28,6 +28,11 @@ client.once("ready", () => {
     console.log(`${client.user.username}` + " is online");
 
     client.utils.get("richPresence").execute(client);
+
+    client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665578564190240`);
+    client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665610138910771`);
+    client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665618603016203`);
+    client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665630360567820`);
 });
 
 
