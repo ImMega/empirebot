@@ -1,7 +1,8 @@
 module.exports = {
     name: "reactroleon",
     execute(message, args, Discord, client){
-        const channel = "859165049700352060";
+        function reactRoles()
+        {const channel = "859165049700352060";
         const maleRole = message.guild.roles.cache.find(role => role.name === "male");
         const femaleRole = message.guild.roles.cache.find(role => role.name === "female");
         const straightRole = message.guild.roles.cache.find(role => role.name === "straight");
@@ -147,5 +148,11 @@ module.exports = {
                 return;
             }
         });
+        repeatRole();
+    }
+    function repeatRole(){
+        reactRoles();
+    }
+    reactRoles();
     }
 }
