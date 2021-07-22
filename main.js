@@ -292,6 +292,9 @@ client.on("message", message => {
     } else 
     if (command === `amigo`) {
         client.commands.get(`amigo`).execute(message, args);
+    } else 
+    if (command === `zvonko`) {
+        client.commands.get(`zvonko`).execute(message, args);
     }
 });
 
