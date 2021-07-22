@@ -1,11 +1,6 @@
 module.exports = {
     name: "reactroleon",
     execute(message, args, Discord, client){
-        client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665578564190240`);
-        client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665610138910771`);
-        client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665618603016203`);
-        client.guilds.get('859163345642717216').channels.get('859165049700352060').fetchMessage(`861665630360567820`);
-
         const channel = "859165049700352060";
         const maleRole = message.guild.roles.cache.find(role => role.name === "male");
         const femaleRole = message.guild.roles.cache.find(role => role.name === "female");
