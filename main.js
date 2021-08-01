@@ -295,6 +295,12 @@ client.on("message", message => {
     } else 
     if (command === `zvonko`) {
         client.commands.get(`zvonko`).execute(message, args);
+    } else 
+    if (command === `stipeexpress`) {
+        client.commands.get(`stipeexpress`).execute(message, args);
+    } else 
+    if (command === `stipesus`) {
+        client.commands.get(`stipesus`).execute(message, args);
     }
 });
 
