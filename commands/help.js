@@ -5,6 +5,9 @@ module.exports = {
         const authorID = message.author.id
         const admins = authorID === "470277450551656459" || authorID === "409040454823444482" || authorID === "772213138132828171"
 
+        const cmds = client.commands.map(v => `\`${v.name}\``).join(`\n`);
+        const pCmds = client.private.map(v => `\`${v.name}\``).join(`\n`);
+        
 
         if(!args[0]) {
             const helpEmbed = new Discord.MessageEmbed()
@@ -12,24 +15,7 @@ module.exports = {
                     .setTitle(`${client.user.username}` + " Commands List")
                     .setDescription(`**Bot je jos u developmentu doci ce jos komandi**\n`
                                     + `Prefix: **e!**\n`
-                                    + ` \n`
-                                    + `help\n`
-                                    + `ping\n`
-                                    + `yeet\n`
-                                    + `kill\n`
-                                    + `gay\n`
-                                    + `ppsize\n`
-                                    + `simp\n`
-                                    + `grill\n`
-                                    + `bakar\n`
-                                    + `cajna\n`
-                                    + `klaric\n`
-                                    + `klaric2\n`
-                                    + `jebanje\n`
-                                    + `jebanje2\n`
-                                    + `jebanje3\n`
-                                    + `amigo\n`
-                                    + `zvonko`)
+                                    + `${cmds}`)
                     .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
                     .setFooter(`${client.user.username}` + " Commands")
                     .setTimestamp()
@@ -42,7 +28,7 @@ module.exports = {
                 .setTitle(`${client.user.username}` + " Admin Commands List")
                 .setDescription(`Prefix: **e!**\n`
                                 + ` \n`
-                                + `msg ( e!msg <channel ID> <message> )`)
+                                + `${pCmds}`)
                 .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
                 .setFooter(`${client.user.username}` + " Admin Commands")
                 .setTimestamp()
