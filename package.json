@@ -1,6 +1,9 @@
 {
   "name": "empirebot",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.6.2"
+  },
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -17,7 +20,10 @@
   },
   "homepage": "https://github.com/ImMega/empirebot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3",
-    "dotenv": "^10.0.0"
+    "@discordjs/opus": "^0.5.3",
+    "discord-player": "^5.1.0",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0"
   }
 }

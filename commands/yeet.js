@@ -1,6 +1,8 @@
 module.exports = {
     name: "yeet", 
+    aliases: [],
     description: "yeet." ,
+    usage: `yeet <target>`,
     execute(message, args){
         const author = message.author
         const target = message.mentions.users.first()

@@ -1,6 +1,8 @@
 module.exports = {
     name: "kill", 
+    aliases: [],
     description: "Ubi nekoga (ne za stvarno)" ,
+    usage: `kill <target>`,
     execute(message, args){
         const target = message.mentions.users.first()
         const author = message.author

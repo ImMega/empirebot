@@ -1,6 +1,8 @@
 module.exports = {
     name: "simp", 
+    aliases: [],
     description: "Koliki si simp" ,
+    usage: `simp [target]`,
     execute(message, args){
         const target = message.mentions.users.first()
 

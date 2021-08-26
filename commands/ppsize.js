@@ -1,6 +1,8 @@
 module.exports = {
     name: "ppsize", 
+    aliases: [],
     description: "Velicina malog" ,
+    usage: `ppsize [target]`,
     execute(message, args){
         const target = message.mentions.users.first()
 

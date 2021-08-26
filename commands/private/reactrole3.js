@@ -1,7 +1,9 @@
+const { MessageEmbed } = require(`discord.js`);
+
 module.exports = {
     name: "reactrole3",
     description: " Sets up a react for role message",
-    async execute(message, args, Discord, client) {
+    async execute(message, args, client) {
         const authorID = message.author.id
         const admins = authorID === "470277450551656459" || authorID === "409040454823444482" || authorID === "772213138132828171"
 
@@ -18,7 +20,7 @@ module.exports = {
             const roleEmoji2 = `🏀`;
             const roleEmoji3 = `⛵`;
 
-            let embed = new Discord.MessageEmbed()
+            let embed = new MessageEmbed()
                 .setColor(`#e42643`)
                 .setTitle(`Koji sport te zanima`)
                 .setDescription(`${roleEmoji1} nogomet\n`
