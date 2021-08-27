@@ -42,6 +42,17 @@ player
         queue.metadata.channel.send({ embeds: [musicEmbed] });
     }
 })
+.on("error", (queue, err) => {
+    if(err.statusCode === 410){
+        queue.metadata.channel.send(`Ne mogu pustit tu pjesmu. El mozda age restricted?`);
+        queue.destroy(false);
+    } else if(err.statusCode === `DestroyedQueue`){
+        return;
+    } else {
+        queue.metadata.channel.send(`Dogodio se nepoznati error. Izlazim iz VC...`);
+        queue.destroy(true);
+    }
+})
 
 client.prefix = "e!";
 
