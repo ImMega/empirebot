@@ -51,6 +51,7 @@ player
     } else {
         queue.metadata.channel.send(`Dogodio se nepoznati error. Izlazim iz VC...`);
         queue.destroy(true);
+        console.log(err);
     }
 })
 
