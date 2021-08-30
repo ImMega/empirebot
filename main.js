@@ -54,7 +54,7 @@ player
     }
 })
 
-client.prefix = "e!";
+client.prefix = "-";
 
 const fs = require("fs"); 
 

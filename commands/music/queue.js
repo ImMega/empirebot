@@ -24,7 +24,7 @@ module.exports = {
 
         const qEmbed = new MessageEmbed()
         .setColor(0x4bf542)
-        .setDescription(`**- - - Trenutna Pjesma - - - **\n[${np.title}](${np.url}) (${np.requestedBy})\n**- - - - - - - - - - - - - - - - -**\n\n${q}`)
+        .setDescription(`**- - - Trenutna Pjesma - - - **\n[${np.title}](${np.url}) (${np.requestedBy})\n**- - - - - - - - - - - - - - - - - - -**\n\n${q}`)
         .setFooter(`Page: 1`)
 
         let page = -1;

@@ -2,7 +2,7 @@ const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
     name: `remove`,
-    aliases: [],
+    aliases: [`r`],
     description: `Mice pjesmu s queuea`,
     usage: `remove <naslov ili id>`,
     details: `\`naslov\` - naslov pjesme\n`

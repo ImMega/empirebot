@@ -2,7 +2,7 @@ const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
     name: `clearqueue`,
-    aliases: [`cq`],
+    aliases: [`cq`, `clear`],
     description: `Makne sve pjesme iz queue`,
     usage: `clearqueue`,
     execute(message, args, client){

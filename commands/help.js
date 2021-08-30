@@ -63,16 +63,16 @@ module.exports = {
     
                     message.channel.send({ embeds: [helpEmbed] });
                 }
+            }
+            
+            if(cmdF){
+                const cmd = cmdF;
 
-                if(cmdF){
-                    const cmd = cmdF;
-    
-                    helpCmd(cmd);
-                } else if(musicF){
-                    const cmd = musicF;
-    
-                    helpCmd(cmd);
-                }
+                helpCmd(cmd);
+            } else if(musicF){
+                const cmd = musicF;
+
+                helpCmd(cmd);
             }
         }
     }
