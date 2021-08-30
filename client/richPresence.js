@@ -2,7 +2,7 @@ module.exports = {
     name: "richPresence",
     execute(client){
         function startRPC() {
-            client.user.setActivity(`e!help`, {type: `LISTENING`});
+            client.user.setActivity(`${client.prefix}help`, {type: `LISTENING`});
 
             setTimeout(randomRPC, 15000);
         }
