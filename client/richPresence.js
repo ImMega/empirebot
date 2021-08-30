@@ -66,7 +66,16 @@ module.exports = {
         }
 
         function listeningRPC() {
-            client.user.setActivity(`children in basement`, {type: `LISTENING`});
+            listenActivityGet = Math.floor (Math.random() * 2) + 1;
+
+            if (listenActivityGet === 1){
+                listenActivity = `children in basement`;
+            } else
+            if (listenActivityGet === 2){
+                listenActivity = `Baka Prase`;
+            }
+
+            client.user.setActivity(listenActivity, {type: `LISTENING`});
             
             randomRPC();
         }
