@@ -15,7 +15,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je yeetao " + `${target}` + " kroz prozor");
             } else if (!target) {
-                message.reply("koga ces yeetat?");
+                message.reply("Koga ces yeetat?");
             }
         } else if (yeetWay === 2){
             if (target === author){
@@ -23,7 +23,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je yeetao " + `${target}` + " kroz avion");
             } else if (!target) {
-                message.reply("koga ces yeetat?");
+                message.reply("Koga ces yeetat?");
             }
         } else if (yeetWay === 3){
             if (target === author){
@@ -31,7 +31,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je yeetao " + `${target}` + " u tri pizde materine");
             } else if (!target) {
-                message.reply("koga ces yeetat?");
+                message.reply("Koga ces yeetat?");
             }
         } else if (yeetWay === 4){
             if (target === author){
@@ -42,7 +42,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je yeetao " + `${target}` + " kroz prozor u neboderu");
             } else if (!target) {
-                message.reply("koga ces yeetat?");
+                message.reply("Koga ces yeetat?");
             }
         } 
     }

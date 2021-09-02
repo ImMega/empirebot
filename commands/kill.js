@@ -15,7 +15,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je ubio " + `${target}`)
             } else if (!target){
-                message.reply("koga ces ubiti?")
+                message.reply("Koga ces ubiti?")
             } 
         } else if (killWay === 2){
             if (target === author){
@@ -23,7 +23,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je udavio " + `${target}` + " kajisen")
             } else if (!target){
-                message.reply("koga ces ubiti?")
+                message.reply("Koga ces ubiti?")
             } 
         } else if (killWay === 3){
             if (target === author){
@@ -31,7 +31,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je **slucajno** gurnio " + `${target}` + " pod bus")
             } else if (!target){
-                message.reply("koga ces ubiti?")
+                message.reply("Koga ces ubiti?")
             } 
         } else if (killWay === 4){
             if (target === author){
@@ -39,7 +39,7 @@ module.exports = {
             } else if (target){
                 message.channel.send(`${author}` + " je udario " + `${target}` + " letvon po kicmi")
             } else if (!target){
-                message.reply("koga ces ubiti?")
+                message.reply("Koga ces ubiti?")
             } 
         }
     }

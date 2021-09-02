@@ -9,7 +9,7 @@ module.exports = {
         const simp = Math.floor(Math.random() * 100)
 
         if (!target){
-            message.reply('ti si ' + `${simp}` + '% gay!');
+            message.reply('Ti si ' + `${simp}` + '% gay!');
         } else if (target){
             message.channel.send(`${target}` + " je " + `${simp}` + '% gay!');
         }
