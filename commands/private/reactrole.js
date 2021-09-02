@@ -7,7 +7,7 @@ module.exports = {
         const authorID = message.author.id
         const admins = authorID === "470277450551656459" || authorID === "409040454823444482" || authorID === "772213138132828171"
 
-        if(admins)
+        if(admins && message.guild.id === `859163345642717216`)
         {
             message.delete();
         

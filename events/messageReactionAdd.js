@@ -1,6 +1,10 @@
 module.exports = {
     name: `messageReactionAdd`,
     async execute(reaction, user){
+        const { message, emoji } = reaction;
+
+        if(!message.guild.id === `859163345642717216`) return;
+
         const maleEmoji = `🔵`;
         const femaleEmoji = `🔴`;
         const straightEmoji = `⚪`;
@@ -16,8 +20,6 @@ module.exports = {
         const footbEmoji = `⚽`;
         const baskbEmoji = `🏀`;
         const sailEmoji = `⛵`;
-
-        const { message, emoji } = reaction;
 
         const maleRole = message.guild.roles.cache.find(role => role.name === "male");
         const femaleRole = message.guild.roles.cache.find(role => role.name === "female");
