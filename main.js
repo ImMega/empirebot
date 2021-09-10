@@ -43,6 +43,7 @@ player
     }
 })
 .on("error", (queue, err) => {
+    const errLog = client.channels.cache.find(channel => channel.id === "885813451065270275");
     if(err.statusCode === 410){
         queue.metadata.channel.send(`Ne mogu pustit tu pjesmu. El mozda age restricted?`);
         queue.destroy(false);
@@ -52,6 +53,7 @@ player
         queue.metadata.channel.send(`Dogodio se nepoznati error. Izlazim iz VC...`);
         queue.destroy(true);
         console.log(err);
+        errLog.send(`An error happened with the music player: \`\`\`${err}\n ${err.statusCode ? `with status code: ${err.statusCode}` : ``}}\`\`\``);
     }
 })
 
