@@ -119,7 +119,9 @@ for (const file of aFiles){
 client.once("ready", () => {
     console.log(`${client.user.username}` + " is online");
 
-    client.utils.get("richPresence").execute(client);
+    client.user.setActivity(`${client.prefix}help`, { type: "LISTENING" });
+
+    setTimeout(()=> {client.utils.get("richPresence").execute(client)}, 7000)
 });
 
 
