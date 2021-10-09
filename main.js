@@ -50,7 +50,7 @@ player
     } else if(err.statusCode === `DestroyedQueue`){
         return;
     } else {
-        queue.metadata.channel.send(`Dogodio se nepoznati error. Izlazim iz VC...\nError code: ${err.statusCode}`);
+        queue.metadata.channel.send(`Dogodio se nepoznati error. Izlazim iz VC...\nError: ${err.statusCode ? `${err.statusCode}` : `${err}`}`);
         queue.destroy(true);
         console.log(err);
         errLog.send(`An error happened with the music player in ${queue.metadata.channel.guild.name}: \`\`\`${err}\`\`\``);
