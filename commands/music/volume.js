@@ -1,3 +1,4 @@
+const { player, client } = require("../../main");
 const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
@@ -7,25 +8,55 @@ module.exports = {
     usage: `volume <volume>`,
     details: `\`volume\` - izmedu 0 i 100`,
     execute(message, args, client){
-        if(!message.member.voice.channel) return message.reply(`Trebas biti u VC samnom da bi to napravio...`);
+        if(!message.member.voice.channel) return message.reply({
+            content: `Trebas biti u VC samnom da bi to napravio...`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply(`Moras biti u istom VC kao i ja!`);
+        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply({
+            content: `Moras biti u istom VC kao i ja!`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
         
-        let queue = client.player.getQueue(message.guild);
+        let queue = player.getQueue(message);
 
-        if(!queue) return;
+        if(!queue) return message.reply({
+            content: "Nista se ne pusta",
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        if(isNaN(args[0])) return message.reply(`Moras unijeti pravi broj!`);
+        if(isNaN(args[0])) return;
+        const volume = parseInt(args[0]);
 
-        const volumeInt = args[0];
+        if(volume < 0) return message.reply({
+            content: "To se ni ne moze napravit",
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
+        if(volume > 100) return message.reply({
+            content: "To je malo preglasno",
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        if(volumeInt < 0) return message.reply(`Nije ni moguce da bude manje od nule tf...`);
-        if(volumeInt > 100) return message.reply(`Nah, to je pre glasno`);
+        queue.setVolume(volume);
 
-        queue.setVolume(volumeInt);
-        const embed = new MessageEmbed()
-        .setColor(0x4bf542)
-        .setDescription(`Volume set to **${volumeInt}**%`)
-        message.channel.send({ embeds: [embed] });
+        message.channel.send({
+            embeds: [
+                new MessageEmbed()
+                .setColor(message.channel.guild.members.cache.get(message.author.id).displayHexColor)
+                .setTitle("Glasnoca Promijenjena")
+                .setDescription(`Glasnoca stavljena na ${volume}%`)
+                .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+            ]
+        });
     }
 }

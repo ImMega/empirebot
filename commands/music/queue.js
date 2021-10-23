@@ -1,3 +1,4 @@
+const { player } = require("../../main");
 const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
@@ -5,87 +6,73 @@ module.exports = {
     aliases: [`q`],
     description: `Pokaze trenutni queue`,
     usage: `queue`,
-    execute(message, args, client){
-        if(!message.member.voice.channel) return message.reply(`Trebas biti u VC samnom da bi to napravio...`);
+    execute(message, args){
+        if(!message.member.voice.channel) return message.reply({
+            content: `Trebas biti u VC samnom da bi to napravio...`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply(`Moras biti u istom VC kao i ja!`);
+        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply({
+            content: `Moras biti u istom VC kao i ja!`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
         
-        let queue = client.player.getQueue(message.guild);
+        let queue = player.getQueue(message);
 
-        if(!queue) return;
+        if(!queue) return message.reply({
+            content: "Nista se ne pusta",
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        const authorID = message.author.id;
+        const songsRaw = queue.songs;
 
-        let np = queue.nowPlaying();
+        const songs = songsRaw.map((e, i) => {
+            return `[${i + 1}] ${e.name} - ${e.formattedDuration} ${i === 0 ? "--- [Now Playing]" : ""}`
+        });
 
-        let q = queue.tracks.map((tracks, i) => {
-            return `**${i+2})** [${tracks.title}](${tracks.url}) (${tracks.requestedBy})`
-        }).slice(0, 9).join(`\n`) + `\n\n${queue.tracks.length > 9 ? `To i jos **${queue.tracks.length - 9}** drugih pjesama...` : ``}`
-
-        const qEmbed = new MessageEmbed()
-        .setColor(0x4bf542)
-        .setDescription(`**- - - Trenutna Pjesma - - - **\n[${np.title}](${np.url}) (${np.requestedBy})\n**- - - - - - - - - - - - - - - - - - -**\n\n${q}`)
-        .setFooter(`Page: 1`)
-
-        let page = -1;
-        const baseStart = 9;
-        const baseEnd = 19;
-
-        message.channel.send({ embeds: [qEmbed] }).then(async (msg) => {
+        message.channel.send(`\`\`\`ini\n${songs.slice(0, 8).join("\n")}\`\`\``)
+        .then(async (msg) => {
             await msg.react("⏮️");
             await msg.react("⏭️");
-            
-            client.on("messageReactionAdd", (reaction, user) => {
-                const { message, emoji } = reaction;
 
-                if(message.id === msg.id && user.id === authorID){
-                    if(emoji.name === "⏭️"){
-                        page++;
-                        reaction.users.remove(user.id);
-                    
-                        if(page > -1){
-                            let timesTo = 10 * page;
-                            const arrayStart = 9 + timesTo;
-                            const arrayEnd = 19 + timesTo;
-    
-                            let qArray = queue.tracks.map(i => {return `${i}`}).slice(arrayStart, arrayEnd)
-        
-                            let q = queue.tracks.map((tracks, i) => {
-                                return `**${i+2})** [${tracks.title}](${tracks.url}) (${tracks.requestedBy})`
-                            }).slice(arrayStart, arrayEnd).join(`\n`) + `\n\n${queue.tracks.length > 9 ? `To i jos **${queue.tracks.length - qArray.length + 1}** drugih pjesama...` : ``}`
-                            
-                            qEmbed.setDescription(`${q}`).setFooter(`Page: ${page + 2}`)
-        
-                            msg.edit({ embeds: [qEmbed] });}
-                    }
-                    if(emoji.name === "⏮️"){
-                        reaction.users.remove(user.id);
-                    
-                        if(page === -1) return;
-                        page--;
-                        if(page > -1){
-                            let timesTo = 10 * page;
-                            const arrayStart = 9 + timesTo;
-                            const arrayEnd = 19 + timesTo;
-    
-                            let qArray = queue.tracks.map(i => {return `${i}`}).slice(arrayStart, arrayEnd)
-        
-                            let q = queue.tracks.map((tracks, i) => {
-                                return `**${i+2})** [${tracks.title}](${tracks.url}) (${tracks.requestedBy})`
-                            }).slice(arrayStart, arrayEnd).join(`\n`) + `\n\n${queue.tracks.length > 9 ? `To i jos **${queue.tracks.length - qArray.length + 1}** drugih pjesama...` : ``}`
-                            
-                            qEmbed.setDescription(`${q}`).setFooter(`Page: ${page + 2}`)
-        
-                            msg.edit({ embeds: [qEmbed] });}
-                        if(page === -1){
-                            let q = queue.tracks.map((tracks, i) => {
-                                return `**${i+2})** [${tracks.title}](${tracks.url}) (${tracks.requestedBy})`
-                            }).slice(0, 9).join(`\n`) + `\n\n${queue.tracks.length > 9 ? `To i jos **${queue.tracks.length - 9}** drugih pjesama...` : ``}`
+            const collector = msg.createReactionCollector({ time: 60000 });
 
-                            qEmbed.setDescription(`**- - - Trenutna Pjesma - - - **\n[${np.title}](${np.url}) (${np.requestedBy})\n**- - - - - - - - - - - - - - - - -**\n\n${q}`)
-                            .setFooter(`Page: 1`)
-                            msg.edit({ embeds: [qEmbed] });
-                        }
+            collector.pages = -1;
+
+            collector.on("collect", (reaction, user) => {
+                if(user.id !== message.author.id) return; 
+
+                if(reaction.emoji.name === "⏭️"){
+                    reaction.users.remove(user);
+
+                    collector.pages++;
+
+                    const page = songs.slice(8 + (8 * collector.pages), 16 + (8 * collector.pages));
+
+                    if(page.length === 0) return collector.pages--;;
+
+                    msg.edit(`\`\`\`ini\n${page.join("\n")}\`\`\``);
+                } else if(reaction.emoji.name === "⏮️"){
+                    reaction.users.remove(user);
+
+                    if(collector.pages === -1) return;
+
+                    collector.pages--;
+
+                    if(collector.pages === -1){
+                        const page = songs.slice(0, 8);
+
+                        msg.edit(`\`\`\`ini\n${page.join("\n")}\`\`\``);
+                    } else {
+                        const page = songs.slice(8 + (8 * collector.pages), 16 + (8 * collector.pages));
+
+                        msg.edit(`\`\`\`ini\n${page.join("\n")}\`\`\``);
                     }
                 }
             })

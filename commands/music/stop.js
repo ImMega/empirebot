@@ -1,18 +1,31 @@
+const { player, client } = require("../../main");
+
 module.exports = {
     name: `stop`,
     aliases: [],
     description: `Zaustavi queue`,
     usage: `stop`,
-    execute(message, args, client){
-        if(!message.member.voice.channel) return message.reply(`Trebas biti u VC samnom da bi to napravio...`);
+    execute(message, args){
+        if(!message.member.voice.channel) return message.reply({
+            content: `Trebas biti u VC samnom da bi to napravio...`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply(`Moras biti u istom VC kao i ja!`);
+        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply({
+            content: `Moras biti u istom VC kao i ja!`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
         
-        let queue = client.player.getQueue(message.guild);
+        let queue = player.getQueue(message);
 
-        if(!queue) return;
+        if(!queue) return message.guild.me.voice.disconnect();
 
         queue.stop();
+        message.guild.me.voice.disconnect();
         message.react(`🛑`);
     }
 }

@@ -1,3 +1,4 @@
+const { player, client } = require("../../main");
 const { MessageEmbed } = require(`discord.js`);
 
 module.exports = {
@@ -5,26 +6,49 @@ module.exports = {
     aliases: [`np`],
     description: `Prikaze trenutnu pjesmu`,
     usage: `nowplaying`,
-    execute(message, args, client){
+    execute(message, args){
         if(!message.member.voice.channel) return message.reply(`Trebas biti u VC samnom da bi to napravio...`);
 
         if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply(`Moras biti u istom VC kao i ja!`);
         
-        let queue = client.player.getQueue(message.guild);
+        let queue = player.getQueue(message);
 
-        if(!queue) return;
+        if(!queue) return message.reply({
+            content: "Nista se ne pusta",
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
-        const embed = new MessageEmbed()
-        .setColor(0x4bf542)
+        const song = queue.songs[0];
 
-        let nowPlaying = queue.nowPlaying();
+        function createProgressBar(queue, song){
+            const progress = ((queue.currentTime / song.duration) * 100).toFixed(0);
+            let progressArr = [];
+            
+            for (i = 1; i < 11; i++){
+                if(progress > (10 * i) - 1 || progressArr.find(e => e === "🔘")){
+                    progressArr.push("▬");
+                } else if(progress < (10 * i) - 1){
+                    progressArr.push("🔘");
+                }
+            }
+            
+            return progressArr.join("");
+        }
 
-        if(!nowPlaying) return message.channel.send(`Nista se ne pusta!`);
+        const progressBar = createProgressBar(queue, song);
 
-        embed
-        .setDescription(`[${nowPlaying.title}](${nowPlaying.url}) (${nowPlaying.requestedBy})\n` + queue.createProgressBar())
-        .setThumbnail(nowPlaying.thumbnail)
-
-        message.channel.send({ embeds: [embed] });
+        message.channel.send({
+            embeds: [
+                new MessageEmbed()
+                .setColor(message.channel.guild.members.cache.get(client.user.id).displayHexColor)
+                .setTitle(song.name)
+                .setURL(song.url)
+                .setDescription(`${queue.formattedCurrentTime} | ${progressBar} | ${song.formattedDuration}`)
+                .setThumbnail(song.thumbnail)
+                .setFooter(song.user.tag, song.user.displayAvatarURL({ dynamic: true }))
+            ]
+        });
     }
 }

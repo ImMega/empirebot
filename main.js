@@ -1,60 +1,94 @@
 require(`dotenv`).config()
 
-const { Client, Intents, Collection, MessageEmbed } = require("discord.js");
+const { Client, Intents, Collection, MessageEmbed, MessageFlags } = require("discord.js");
 const { Player, Util } = require(`discord-player`);
+const DisTube = require("distube");
+const DisTubeSpotify = require("@distube/spotify");
 
 const client = new Client({
     partials: ["MESSAGE", "CHANNEL", "REACTION"],
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
 });
 
-const player = new Player(client);
+const player = new DisTube.default(client, {
+    searchSongs: 1,
+    leaveOnEmpty: true,
+    emptyCooldown: 600000,
+    leaveOnFinish: false,
+    leaveOnStop: false,
+    plugins: [new DisTubeSpotify.default()]
+})
 
 client.player = player;
 
-
+module.exports = { client, player }
 
 player
-.on("trackStart", (queue, track) => {
-    let musicEmbed = new MessageEmbed()
-    .setColor(0x4bf542)
-    .setTitle(`Now Playing`)
-    .setDescription(`[${track.title}](${track.url}) - \`${track.duration}\``)
-    .setThumbnail(track.thumbnail)
-    .setFooter("Added by " + track.requestedBy.tag, track.requestedBy.displayAvatarURL({ dynamic: true }))
-    queue.metadata.channel.send({ embeds: [musicEmbed] });
+.on("playSong", (queue, song) => {
+    if(queue.playingMsg) queue.playingMsg.delete();
+
+    queue.textChannel.send({
+        embeds:
+        [
+            new MessageEmbed()
+            .setColor(queue.voiceChannel.guild.members.cache.get(client.user.id).displayHexColor)
+            .setTitle("Now Playing")
+            .setDescription(`[${song.name}](${song.url}) - \`${song.formattedDuration}\``)
+            .setFooter(song.user.tag, song.user.displayAvatarURL({ dynamic: true }))
+            .setThumbnail(song.thumbnail)
+        ]
+    }).then(msg => {
+        queue.playingMsg = msg;
+    })
 })
-.on("tracksAdd", (queue, tracks) => {
-    let musicEmbed = new MessageEmbed()
-    .setColor(0x4bf542)
-    .setTitle(`Added to queue`)
-    .setDescription(`Added **${tracks.length}** tracks to the queue`)
-    queue.metadata.channel.send({ embeds: [musicEmbed] });
+.on("addSong", (queue, song) => {
+    if(queue.songs.length === 1) return;
+
+    queue.textChannel.send({
+        embeds: [
+            new MessageEmbed()
+            .setColor(queue.voiceChannel.guild.members.cache.get(song.user.id).displayHexColor)
+            .setTitle(`Dodano u Queue`)
+            .setDescription(`[${song.name}](${song.url}) - \`${song.formattedDuration}\``)
+            .setThumbnail(song.thumbnail)
+            .setFooter(song.user.tag, song.user.displayAvatarURL({ dynamic: true }))
+        ]
+    })
 })
-.on("trackAdd", (queue, track) => {
-    if(queue.previousTracks.length > 0){
-        let musicEmbed = new MessageEmbed()
-        .setColor(0x4bf542)
-        .setTitle(`Added to queue`)
-        .setDescription(`[${track.title}](${track.url}) - \`${track.duration}\``)
-        .setThumbnail(track.thumbnail)
-        .setFooter("Added by " + track.requestedBy.tag, track.requestedBy.displayAvatarURL({ dynamic: true }))
-        queue.metadata.channel.send({ embeds: [musicEmbed] });
-    }
+.on("addList", (queue, list) => {
+    if(list.source === "spotify") return queue.textChannel.send({
+        embeds: [
+            new MessageEmbed()
+            .setColor(queue.voiceChannel.guild.members.cache.get(list.user.id).displayHexColor)
+            .setTitle(`Playlist Dodan u Queue`)
+            .setDescription(`Dodan Spotify playlist **${list.name}**`)
+            .setThumbnail(list.thumbnail)
+            .setFooter(list.user.tag, list.user.displayAvatarURL({ dynamic: true }))
+        ]
+    });
+
+    queue.textChannel.send({
+        embeds: [
+            new MessageEmbed()
+            .setColor(queue.voiceChannel.guild.members.cache.get(list.user.id).displayHexColor)
+            .setTitle(`Playlist Dodan u Queue`)
+            .setDescription(`Dodan ${list.source === "youtube" ? `YouTube` : `${list.source}`} playlist **${list.name}** sa **${list.songs.length}** pjesama`)
+            .setThumbnail(list.thumbnail)
+            .setFooter(list.user.tag, list.user.displayAvatarURL({ dynamic: true }))
+        ]
+    })
 })
-.on("error", (queue, err) => {
-    const errLog = client.channels.cache.find(channel => channel.id === "885813451065270275");
-    if(err.statusCode === 410){
-        queue.metadata.channel.send(`Ne mogu pustit tu pjesmu. El mozda age restricted?`);
-        queue.destroy(false);
-    } else if(err.statusCode === `DestroyedQueue`){
-        return;
-    } else {
-        queue.metadata.channel.send(`Dogodio se nepoznati error. Izlazim iz VC...\nError: ${err.statusCode ? `${err.statusCode}` : `${err}`}`);
-        queue.destroy(true);
-        console.log(err);
-        errLog.send(`An error happened with the music player in ${queue.metadata.channel.guild.name}: \`\`\`${err}\`\`\``);
-    }
+.on("searchNoResult", message => {
+    message.reply({
+        content: "E jebiga, nista nisam nasao",
+        allowedMentions: {
+            repliedUser: false
+        }
+    });
+})
+.on("error", (channel, err) => {
+    channel.send(`A jebiga neki error se dogodio: \n${err}`);
+    console.log(err);
 })
 
 client.prefix = "-";
