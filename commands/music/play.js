@@ -6,11 +6,21 @@ module.exports = {
     description: `Pusta pjesmu`,
     usage: `play <pjesma ili playlist>`,
     async execute(message, args){
-        if(!message.member.voice.channel) return message.reply(`Nisi cak ni u VC a zelis da pustam pjesme?`);
+        if(!message.member.voice.channel) return message.reply({
+            content: `Nisi cak ni u VC a zelis da pustam pjesme?`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
         const queue = player.getQueue(message);
 
-        if(queue && message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply(`Moras biti u istom VC kao i ja!`);
+        if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.reply({
+            content: `Moras biti u istom VC kao i ja!`,
+            allowedMentions: {
+                repliedUser: false
+            }
+        });
 
         player.play(message, args.join(" "));
     }
