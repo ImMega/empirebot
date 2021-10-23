@@ -1,4 +1,5 @@
 const { player, client } = require("../../main");
+const { getVoiceConnection } = require("@discordjs/voice")
 
 module.exports = {
     name: `stop`,
@@ -22,10 +23,12 @@ module.exports = {
         
         let queue = player.getQueue(message);
 
-        if(!queue) return message.guild.me.voice.disconnect();
+        const connection = getVoiceConnection(message.guild.id);
+
+        if(!queue) return connection.disconnect();
 
         queue.stop();
-        message.guild.me.voice.disconnect();
+        connection.disconnect();
         message.react(`🛑`);
     }
 }
