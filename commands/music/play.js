@@ -22,6 +22,8 @@ module.exports = {
             }
         });
 
+        if(!message.guild.me.voice.channel) player.voices.join(message.member.voice.channel);
+
         player.play(message, args.join(" "));
     }
 }
