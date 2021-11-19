@@ -3,7 +3,7 @@ module.exports = {
     aliases: [],
     description: "accurate slika klarica",
     usage: `klaric`,
-    execute(message, args){
+    execute(message){
         message.channel.send({files: ["./images/nutella.png"]});
     }
 }
