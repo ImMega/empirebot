@@ -13,7 +13,7 @@ const client = new Client({
 const player = new DisTube.default(client, {
     searchSongs: 1,
     leaveOnEmpty: true,
-    emptyCooldown: 600000,
+    emptyCooldown: 300,
     leaveOnFinish: false,
     leaveOnStop: false,
     plugins: [new DisTubeSpotify.default()]
