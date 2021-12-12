@@ -1,9 +1,11 @@
 const { MessageEmbed } = require(`discord.js`);
+const { client } = require("../../main");
 
 module.exports = {
     name: "reactrole",
+    aliases: [],
     description: " Sets up a react for role message",
-    async execute(message, args, client) {
+    async execute(message, args) {
         const authorID = message.author.id
         const admins = authorID === "470277450551656459" || authorID === "409040454823444482" || authorID === "772213138132828171"
 

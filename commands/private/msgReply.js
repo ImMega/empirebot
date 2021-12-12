@@ -1,7 +1,8 @@
 module.exports = {
     name: `msgreply`,
+    aliases: [],
     description: `Replies to a message (also admins only)`,
-    execute(message, args, client){
+    execute(message, args){
         if(!message.member.permissions.has("ADMINISTRATOR")) return;
 
         if(!args[0] || !args[1]) return;
