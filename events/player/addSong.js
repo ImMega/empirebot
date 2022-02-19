@@ -10,7 +10,7 @@ module.exports = (queue, song) => {
             .setTitle(`Dodano u Queue`)
             .setDescription(`[${song.name}](${song.url}) - \`${song.formattedDuration}\``)
             .setThumbnail(song.thumbnail)
-            .setFooter(song.user.tag, song.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({ text: song.user.tag, iconURL: song.user.displayAvatarURL({ dynamic: true })})
         ]
     })
 }

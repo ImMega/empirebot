@@ -3,6 +3,8 @@ require("dotenv").config();
 const { Client, Intents } = require("discord.js");
 const DisTube = require("distube").default;
 const DisTubeSpotify = require("@distube/spotify").default;
+const DisTubeSoundCloud = require("@distube/soundcloud").default;
+const DisTubeYtDlp = require("@distube/yt-dlp").YtDlpPlugin;
 
 const client = new Client({
     partials: ["MESSAGE", "CHANNEL", "REACTION"],
@@ -15,7 +17,8 @@ const player = new DisTube(client, {
     emptyCooldown: 300,
     leaveOnFinish: false,
     leaveOnStop: false,
-    plugins: [new DisTubeSpotify()]
+    plugins: [new DisTubeSpotify(), new DisTubeSoundCloud(), new DisTubeYtDlp()],
+    youtubeDL: false
 });
 
 client.prefix = "-";

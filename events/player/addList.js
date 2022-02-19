@@ -8,7 +8,7 @@ module.exports = (queue, list) => {
             .setTitle(`Playlist Dodan u Queue`)
             .setDescription(`Dodan Spotify playlist **${list.name}**`)
             .setThumbnail(list.thumbnail)
-            .setFooter(list.user.tag, list.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({ text: list.user.tag, iconURL: list.user.displayAvatarURL({ dynamic: true }) })
         ]
     });
 
@@ -19,7 +19,7 @@ module.exports = (queue, list) => {
             .setTitle(`Playlist Dodan u Queue`)
             .setDescription(`Dodan ${list.source === "youtube" ? `YouTube` : `${list.source}`} playlist **${list.name}** sa **${list.songs.length}** pjesama`)
             .setThumbnail(list.thumbnail)
-            .setFooter(list.user.tag, list.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({ text: list.user.tag, iconURL: list.user.displayAvatarURL({ dynamic: true }) })
         ]
     })
 }

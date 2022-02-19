@@ -41,7 +41,7 @@ module.exports = {
                 new MessageEmbed()
                 .setColor(message.guild.members.cache.get(message.author.id).displayHexColor)
                 .setDescription(`Queue loop mode stavljen na: \`${mode}\``)
-                .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+                .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             ]
         });
     }

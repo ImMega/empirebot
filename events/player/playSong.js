@@ -11,7 +11,7 @@ module.exports = (queue, song) => {
             .setColor(queue.voiceChannel.guild.members.cache.get(client.user.id).displayHexColor)
             .setTitle("Now Playing")
             .setDescription(`[${song.name}](${song.url}) - \`${song.formattedDuration}\``)
-            .setFooter(song.user.tag, song.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({ text: song.user.tag, iconURL: song.user.displayAvatarURL({ dynamic: true }) })
             .setThumbnail(song.thumbnail)
         ]
     }).then(msg => {

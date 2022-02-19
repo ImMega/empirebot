@@ -61,7 +61,7 @@ module.exports = {
                 .setColor(message.channel.guild.members.cache.get(message.author.id).displayHexColor)
                 .setTitle("Maknuto iz Queuea")
                 .setDescription(`[${song.name}](${song.url}) - \`${song.formattedDuration}\``)
-                .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+                .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setThumbnail(song.thumbnail)
             ]
         });

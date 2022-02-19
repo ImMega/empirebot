@@ -55,7 +55,7 @@ module.exports = {
                 .setColor(message.channel.guild.members.cache.get(message.author.id).displayHexColor)
                 .setTitle("Glasnoca Promijenjena")
                 .setDescription(`Glasnoca stavljena na ${volume}%`)
-                .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+                .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             ]
         });
     }

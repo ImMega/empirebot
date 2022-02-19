@@ -47,7 +47,7 @@ module.exports = {
                 .setURL(song.url)
                 .setDescription(`${queue.formattedCurrentTime} | ${progressBar} | ${song.formattedDuration}`)
                 .setThumbnail(song.thumbnail)
-                .setFooter(song.user.tag, song.user.displayAvatarURL({ dynamic: true }))
+                .setFooter({ text: song.user.tag, iconURL: song.user.displayAvatarURL({ dynamic: true }) })
             ]
         });
     }

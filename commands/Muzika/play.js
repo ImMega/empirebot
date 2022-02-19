@@ -24,6 +24,6 @@ module.exports = {
 
         if(!message.guild.me.voice.channel) player.voices.join(message.member.voice.channel);
 
-        player.play(message, args.join(" "));
+        player.play(message.member.voice.channel, args.join(" "), { textChannel: message.channel, member: message.member });
     }
 }
