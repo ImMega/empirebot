@@ -8,7 +8,7 @@ const DisTubeYtDlp = require("@distube/yt-dlp").YtDlpPlugin;
 
 const client = new Client({
     partials: ["MESSAGE", "CHANNEL", "REACTION"],
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES]
 });
 
 const player = new DisTube(client, {
